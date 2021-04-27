@@ -1,0 +1,33 @@
+﻿<Properties StartupConfiguration="{5043F9E5-900F-1509-1E32-E5380F4780DB}|">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/PictureManager.cs">
+    <Files>
+      <File FileName="Assets/Scripts/ButtonBehaviour.cs" Line="13" Column="1" />
+      <File FileName="Assets/Scripts/GameSettings.cs" Line="103" Column="1" />
+      <File FileName="Assets/Scripts/SetGameButton.cs" Line="42" Column="51" />
+      <File FileName="Assets/Editor/SetGameButtonEditor.cs" Line="24" Column="158" />
+      <File FileName="Assets/Scripts/PictureManager.cs" Line="118" Column="52" />
+      <File FileName="Assets/Scripts/Picture.cs" Line="101" Column="87" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="Speed Snap" expanded="True">
+            <Node name="Assets" expanded="True">
+              <Node name="Editor" expanded="True" />
+              <Node name="Scripts" expanded="True">
+                <Node name="PictureManager.cs" selected="True" />
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="9c0b51a3-f748-4ee0-83ce-f4e8ba6aac75" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>
