@@ -21,8 +21,6 @@ public class Picture : MonoBehaviour
     public void SetIndex(int id) { _index = id; }
     public int GetIndex() { return _index; }
 
-
-
     // Start is called before the first frame update
     void Start()
     {
@@ -30,15 +28,6 @@ public class Picture : MonoBehaviour
         _clicked = false;
         _pictureManager = GameObject.Find("[PictureManager]").GetComponent<PictureManager>();
         _currentRotation = gameObject.transform.rotation;
-
-        _audio = GetComponent<AudioSource>();
-        _audio.clip = PressSound;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     private void OnMouseDown()
@@ -71,13 +60,13 @@ public class Picture : MonoBehaviour
         var startAngle = angle;
         var assigned = false;
 
-        if(FirstMat)
+        if (FirstMat)
         {
             while (rot < angle)
             {
                 var step = Time.deltaTime * rotSpeed1;
                 gameObject.GetComponent<Transform>().Rotate(new Vector3(0, 2, 0) * step * dir);
-                if(rot >= (startAngle - 2) && assigned == false)
+                if (rot >= (startAngle - 2) && assigned == false)
                 {
                     ApplyFirstMaterial();
                     assigned = true;
@@ -100,7 +89,7 @@ public class Picture : MonoBehaviour
 
         gameObject.GetComponent<Transform>().rotation = _currentRotation;
 
-        if(!FirstMat)
+        if (!FirstMat)
         {
             Revealed = true;
             ApplySecondMaterial();

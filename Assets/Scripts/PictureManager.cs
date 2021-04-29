@@ -34,8 +34,6 @@ public class PictureManager : MonoBehaviour
     public List<Picture> PictureList;
 
     private Vector2 _offset = new Vector2(1.5f, 1.52f);
-    private Vector3 _newScaleDown = new Vector3(0.9f, 0.9f, 0.001f);
-
 
     private List<Material> _materialList = new List<Material>();
     private List<string> _texturePathList = new List<string>();
@@ -237,11 +235,6 @@ public class PictureManager : MonoBehaviour
             for(int row = 0; row < rows; row++)
             {
                 var tempPicture = (Picture)Instantiate(PicturePrefab, PicSpawnPosition.position, PicturePrefab.transform.rotation);
-
-                if(scaleDown)
-                {
-                    tempPicture.transform.localScale = _newScaleDown;
-                }
 
                 tempPicture.name = tempPicture.name + 'c' + col + 'r' + row;
                 PictureList.Add(tempPicture);

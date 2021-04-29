@@ -5,12 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class ButtonBehaviour : MonoBehaviour
 {
-
-    private void Start()
-    {
-
-    }
-
     public void LoadScene(string scene_name)
     {
         SceneManager.LoadScene(scene_name);
