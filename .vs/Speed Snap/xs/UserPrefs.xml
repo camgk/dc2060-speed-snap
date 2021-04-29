@@ -1,12 +1,11 @@
 ﻿<Properties StartupConfiguration="{5043F9E5-900F-1509-1E32-E5380F4780DB}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Config.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/ButtonBehaviour.cs">
     <Files>
       <File FileName="Assets/Scripts/GameSettings.cs" Line="130" Column="35" />
       <File FileName="Assets/Scripts/Picture.cs" />
-      <File FileName="Assets/Scripts/ButtonBehaviour.cs" Line="11" Column="34" />
-      <File FileName="Assets/Scripts/PictureManager.cs" Line="249" Column="10" />
+      <File FileName="Assets/Scripts/ButtonBehaviour.cs" Line="11" Column="1" />
+      <File FileName="Assets/Scripts/PictureManager.cs" />
       <File FileName="Assets/Scripts/Timer.cs" />
-      <File FileName="Assets/Scripts/Config.cs" Line="50" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -15,7 +14,7 @@
             <Node name="Assets" expanded="True">
               <Node name="Editor" expanded="True" />
               <Node name="Scripts" expanded="True">
-                <Node name="Config.cs" selected="True" />
+                <Node name="GameSettings.cs" selected="True" />
               </Node>
             </Node>
           </Node>
@@ -25,7 +24,7 @@
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="5599a249-56f4-4b94-b766-85a6de434dbd" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="2151461c-3b3c-45d1-9a34-fc101e23e1ea" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
