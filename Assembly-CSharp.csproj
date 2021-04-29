@@ -57,10 +57,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets/Scripts/SetGameButton.cs" />
-    <Compile Include="Assets/Scripts/ButtonBehaviour.cs" />
-    <Compile Include="Assets/Scripts/GameSettings.cs" />
     <Compile Include="Assets/Scripts/PictureManager.cs" />
+    <Compile Include="Assets/Scripts/ButtonBehaviour.cs" />
+    <Compile Include="Assets/Scripts/Timer.cs" />
+    <Compile Include="Assets/Scripts/GameSettings.cs" />
     <Compile Include="Assets/Scripts/Picture.cs" />
+    <Compile Include="Assets/Scripts/MuteSoundEffectButton.cs" />
+    <Compile Include="Assets/Scripts/Config.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets/TextMesh Pro/Shaders/TMPro.cginc" />

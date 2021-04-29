@@ -5,8 +5,20 @@ using UnityEngine.SceneManagement;
 
 public class ButtonBehaviour : MonoBehaviour
 {
+
+    private void Start()
+    {
+        Config.CreateScoreFile();
+    }
+
     public void LoadScene(string scene_name)
     {
         SceneManager.LoadScene(scene_name);
+    }
+
+
+    public void ResetGameSettings()
+    {
+        GameSettings.Instance.ResetGameSettings();
     }
 }
