@@ -56,12 +56,9 @@
     <Analyzer Include="/Applications/Visual Studio.app/Contents/Resources/lib/monodevelop/AddIns/MonoDevelop.Unity/Analyzers/Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets/Scripts/SetGameButton.cs" />
     <Compile Include="Assets/Scripts/PictureManager.cs" />
     <Compile Include="Assets/Scripts/ButtonBehaviour.cs" />
-    <Compile Include="Assets/Scripts/MuteSoundEffectButton.cs" />
     <Compile Include="Assets/Scripts/Timer.cs" />
-    <Compile Include="Assets/Scripts/GameSettings.cs" />
     <Compile Include="Assets/Scripts/Picture.cs" />
   </ItemGroup>
   <ItemGroup>

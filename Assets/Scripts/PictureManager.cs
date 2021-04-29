@@ -14,7 +14,6 @@ public class PictureManager : MonoBehaviour
     [Header("EndGameScreen")]
     public GameObject EndGamePanel;
 
-    public GameObject NewBestScoreText;
     public GameObject YourScoreText;
     public GameObject EndTimeText;
 
@@ -35,8 +34,6 @@ public class PictureManager : MonoBehaviour
     public List<Picture> PictureList;
 
     private Vector2 _offset = new Vector2(1.5f, 1.52f);
-    private Vector2 _offsetFor15Pairs = new Vector2(1.08f, 1.22f);
-    private Vector2 _offsetFor20Pairs = new Vector2(1.08f, 1.0f);
     private Vector3 _newScaleDown = new Vector3(0.9f, 0.9f, 0.001f);
 
 
@@ -68,31 +65,15 @@ public class PictureManager : MonoBehaviour
         _secondRevealedPic = -1;
 
         _removedPairs = 0;
-        _pairNumbers = (int)GameSettings.Instance.GetPairNumber();
+        _pairNumbers = 10;
 
         _gameTimer = GameObject.Find("Main Camera").GetComponent<Timer>();
 
         LoadMaterials();
 
-
-        if(GameSettings.Instance.GetPairNumber() == GameSettings.EPairNumber.E10Pairs)
-        {
-            CurrentGameState = GameState.MovingOnPositions;
-            SpawnPictureMesh(4, 5, StartPosition, _offset, false);
-            MovePicture(4, 5, StartPosition, _offset);
-        }
-        else if (GameSettings.Instance.GetPairNumber() == GameSettings.EPairNumber.E15Pairs)
-        {
-            CurrentGameState = GameState.MovingOnPositions;
-            SpawnPictureMesh(5, 6, StartPosition, _offset, false);
-            MovePicture(5, 6, StartPosition, _offsetFor15Pairs);
-        }
-        if (GameSettings.Instance.GetPairNumber() == GameSettings.EPairNumber.E20Pairs)
-        {
-            CurrentGameState = GameState.MovingOnPositions;
-            SpawnPictureMesh(5, 8, StartPosition, _offset, true);
-            MovePicture(5, 8, StartPosition, _offsetFor20Pairs);
-        }
+        CurrentGameState = GameState.MovingOnPositions;
+        SpawnPictureMesh(4, 5, StartPosition, _offset, false);
+        MovePicture(4, 5, StartPosition, _offset);
 
     }
 
@@ -173,9 +154,9 @@ public class PictureManager : MonoBehaviour
 
     private void LoadMaterials()
     {
-        var materialFilePAth = GameSettings.Instance.GetMaterialDirectoryName();
-        var textureFilePath = GameSettings.Instance.GetPuzzleCategoryTextureDirectoryName();
-        var pairNumber = (int)GameSettings.Instance.GetPairNumber();
+        string materialFilePAth = "Materials/";
+        string textureFilePath = "Graphics/Cards/";
+        int pairNumber = 10;
         const string matBaseName = "Pic";
         var firstMaterialName = "Back";
 

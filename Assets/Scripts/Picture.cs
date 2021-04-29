@@ -48,11 +48,6 @@ public class Picture : MonoBehaviour
             _pictureManager.CurrentPuzzleState = PictureManager.PuzzleState.PuzzleRotating;
             StartCoroutine(LoopRotation(45, false));
             _clicked = true;
-
-            if(GameSettings.Instance.IsSoundEffectMutedPermanently() == false)
-            {
-                _audio.Play();
-            }
         }
     }
 
@@ -62,11 +57,6 @@ public class Picture : MonoBehaviour
         {
             _pictureManager.CurrentPuzzleState = PictureManager.PuzzleState.PuzzleRotating;
             Revealed = false;
-
-            if (GameSettings.Instance.IsSoundEffectMutedPermanently() == false)
-            {
-                _audio.Play();
-            }
 
             StartCoroutine(LoopRotation(45, true));
         }
