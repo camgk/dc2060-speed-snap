@@ -227,7 +227,7 @@ public class PictureManager : MonoBehaviour
         EndTimeText.GetComponent<Text>().text = newText;
     }
 
-
+    //Setup the grid
     private void SpawnPictureMesh(int rows, int columns, Vector2 Pos, Vector2 offset, bool scaleDown)
     {
         for(int col = 0; col < columns; col++)
@@ -244,6 +244,8 @@ public class PictureManager : MonoBehaviour
         ApplyTextures();
     }
 
+
+    //Apply teaxtures to the cards
     public void ApplyTextures()
     {
         var rndMatIndex = Random.Range(0, _materialList.Count);
@@ -294,12 +296,13 @@ public class PictureManager : MonoBehaviour
 
     }
 
+    //Move Pictures from Spawn point to screen
     private void MovePicture(int rows, int columns, Vector2 pos, Vector2 offset)
     {
         var index = 0;
         for (var col = 0; col < columns; col++)
         {
-            for(int row = 0; row < rows; row++)
+            for (int row = 0; row < rows; row++)
             {
                 var targetPosition = new Vector3((pos.x + (offset.x * row)), (pos.y - (offset.y * col)), 0.0f);
                 StartCoroutine(MoveToPosition(targetPosition, PictureList[index]));
@@ -308,11 +311,12 @@ public class PictureManager : MonoBehaviour
         }
     }
 
+    //Movement animation
     private IEnumerator MoveToPosition(Vector3 target, Picture obj)
     {
         var randomDis = 7;
 
-        while(obj.transform.position != target)
+        while (obj.transform.position != target)
         {
             obj.transform.position = Vector3.MoveTowards(obj.transform.position, target, randomDis * Time.deltaTime);
             yield return 0;

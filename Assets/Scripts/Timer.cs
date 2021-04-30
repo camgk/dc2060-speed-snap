@@ -8,10 +8,12 @@ public class Timer : MonoBehaviour
 
     public GUIStyle ClockStyle;
 
+    //Timer floats
     private float _timer;
     private float _minutes;
     private float _seconds;
 
+    //Size of the Game Screen
     private const float VirtualWidth = 480.0f;
     private const float VirtualHeight = 854.0f;
 
@@ -36,6 +38,7 @@ public class Timer : MonoBehaviour
         }
     }
 
+    //Show timer on screen
     private void OnGUI()
     {
         GUI.matrix = _matrix;
