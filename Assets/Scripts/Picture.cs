@@ -5,6 +5,7 @@ using UnityEngine;
 public class Picture : MonoBehaviour
 {
 
+    public AudioClip PressSound;
     private Material _firstMaterial;
     private Material _secondMaterial;
 
@@ -13,6 +14,13 @@ public class Picture : MonoBehaviour
     [HideInInspector] public bool Revealed = false;
     private PictureManager _pictureManager;
     private bool _clicked = false;
+    private int _index;
+
+    private AudioSource _audio;
+
+    public void SetIndex(int id) { _index = id; }
+    public int GetIndex() { return _index; }
+
 
 
     // Start is called before the first frame update
@@ -22,6 +30,9 @@ public class Picture : MonoBehaviour
         _clicked = false;
         _pictureManager = GameObject.Find("[PictureManager]").GetComponent<PictureManager>();
         _currentRotation = gameObject.transform.rotation;
+
+        _audio = GetComponent<AudioSource>();
+        _audio.clip = PressSound;
     }
 
     // Update is called once per frame
@@ -37,6 +48,11 @@ public class Picture : MonoBehaviour
             _pictureManager.CurrentPuzzleState = PictureManager.PuzzleState.PuzzleRotating;
             StartCoroutine(LoopRotation(45, false));
             _clicked = true;
+
+            if(GameSettings.Instance.IsSoundEffectMutedPermanently() == false)
+            {
+                _audio.Play();
+            }
         }
     }
 
@@ -46,8 +62,13 @@ public class Picture : MonoBehaviour
         {
             _pictureManager.CurrentPuzzleState = PictureManager.PuzzleState.PuzzleRotating;
             Revealed = false;
-            StartCoroutine(LoopRotation(45, true));
 
+            if (GameSettings.Instance.IsSoundEffectMutedPermanently() == false)
+            {
+                _audio.Play();
+            }
+
+            StartCoroutine(LoopRotation(45, true));
         }
     }
 
@@ -126,5 +147,18 @@ public class Picture : MonoBehaviour
     public void ApplySecondMaterial()
     {
         gameObject.GetComponent<Renderer>().material = _secondMaterial;
+    }
+
+    public void Deactivate()
+    {
+        StartCoroutine(DeactivateCorutine());
+    }
+
+    private IEnumerator DeactivateCorutine()
+    {
+        Revealed = false;
+
+        yield return new WaitForSeconds(1f);
+        gameObject.SetActive(false);
     }
 }

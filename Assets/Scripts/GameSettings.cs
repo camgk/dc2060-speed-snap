@@ -7,6 +7,7 @@ public class GameSettings : MonoBehaviour
     private readonly Dictionary<EPuzzleCategories, string> _puzzleCatDirectory = new Dictionary<EPuzzleCategories, string>();
     private int _settings;
     private const int SettingsNumber = 2;
+    private bool _muteFxPermanently = false;
 
     public enum EPairNumber
     {
@@ -19,8 +20,9 @@ public class GameSettings : MonoBehaviour
     public enum EPuzzleCategories
     {
         NotSet,
-        Fruits,
-        Vegetables
+        Farm,
+        Ocean,
+        Space
     }
 
     public struct Settings
@@ -59,8 +61,9 @@ public class GameSettings : MonoBehaviour
 
     private void SetPuzzleCatDirectory()
     {
-        _puzzleCatDirectory.Add(EPuzzleCategories.Fruits, "Fruits");
-        _puzzleCatDirectory.Add(EPuzzleCategories.Vegetables, "Veg");
+        _puzzleCatDirectory.Add(EPuzzleCategories.Ocean, "Ocean");
+        _puzzleCatDirectory.Add(EPuzzleCategories.Space, "Space");
+        _puzzleCatDirectory.Add(EPuzzleCategories.Farm, "Farm");
     }
 
     public void SetPairNumber(EPairNumber Number)
@@ -117,5 +120,15 @@ public class GameSettings : MonoBehaviour
             Debug.LogError("Error: Cannot get dir name");
             return "";
         }
+    }
+
+    public void MuteSoudEffectPermanently(bool muted)
+    {
+        _muteFxPermanently = muted;
+    }
+
+    public bool IsSoundEffectMutedPermanently()
+    {
+        return _muteFxPermanently;
     }
 }

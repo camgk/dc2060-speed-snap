@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PictureManager : MonoBehaviour
 {
@@ -8,6 +9,14 @@ public class PictureManager : MonoBehaviour
     public Picture PicturePrefab;
     public Transform PicSpawnPosition;
     public Vector2 StartPosition = new Vector2(-2.15f, 3.62f);
+
+    [Space]
+    [Header("EndGameScreen")]
+    public GameObject EndGamePanel;
+
+    public GameObject NewBestScoreText;
+    public GameObject YourScoreText;
+    public GameObject EndTimeText;
 
     public enum GameState { NoAction, MovingOnPositions, DeletingPuzzles, FlipBack, Checking, GameEnd };
 
@@ -25,7 +34,7 @@ public class PictureManager : MonoBehaviour
     [HideInInspector]
     public List<Picture> PictureList;
 
-    private Vector2 _offset = new Vector2(1.5f, 1.52f);
+    private Vector2 _offset = new Vector2(1.43f, 1.52f);
     private Vector2 _offsetFor15Pairs = new Vector2(1.08f, 1.22f);
     private Vector2 _offsetFor20Pairs = new Vector2(1.08f, 1.0f);
     private Vector3 _newScaleDown = new Vector3(0.9f, 0.9f, 0.001f);
@@ -39,7 +48,14 @@ public class PictureManager : MonoBehaviour
     private int _firstRevealedPic;
     private int _secondRevealedPic;
     private int _revealedPicNumber = 0;
+    private int _picToDestroy1;
+    private int _picToDestroy2;
 
+    private bool _corutineStarted = false;
+
+    private int _pairNumbers;
+    private int _removedPairs;
+    private Timer _gameTimer;
 
     // Start is called before the first frame update
     void Start()
@@ -50,6 +66,11 @@ public class PictureManager : MonoBehaviour
         _revealedPicNumber = 0;
         _firstRevealedPic = -1;
         _secondRevealedPic = -1;
+
+        _removedPairs = 0;
+        _pairNumbers = (int)GameSettings.Instance.GetPairNumber();
+
+        _gameTimer = GameObject.Find("Main Camera").GetComponent<Timer>();
 
         LoadMaterials();
 
@@ -99,7 +120,17 @@ public class PictureManager : MonoBehaviour
 
         if (_revealedPicNumber == 2)
         {
-            CurrentGameState = GameState.FlipBack;
+            if(PictureList[_firstRevealedPic].GetIndex() == PictureList[_secondRevealedPic].GetIndex() && _firstRevealedPic != _secondRevealedPic)
+            {
+                CurrentGameState = GameState.DeletingPuzzles;
+                _picToDestroy1 = _firstRevealedPic;
+                _picToDestroy2 = _secondRevealedPic;
+            }
+            else
+            {
+                CurrentGameState = GameState.FlipBack;
+            }
+
         }
 
         CurrentPuzzleState = PictureManager.PuzzleState.CanRotate;
@@ -110,9 +141,23 @@ public class PictureManager : MonoBehaviour
         }
     }
 
-    private void FlipBack()
+    private void DestroyPicture()
     {
-        System.Threading.Thread.Sleep(500); //test remove
+        PuzzleRevealedNumber = RevealedState.NoRevealed;
+        
+        PictureList[_picToDestroy1].Deactivate();
+        PictureList[_picToDestroy2].Deactivate();
+        _revealedPicNumber = 0;
+        _removedPairs++;
+        CurrentGameState = GameState.NoAction;
+        CurrentPuzzleState = PuzzleState.CanRotate;
+    }
+
+    private IEnumerator FlipBack()
+    {
+        _corutineStarted = true;
+
+        yield return new WaitForSeconds(0.5f);
 
         PictureList[_firstRevealedPic].FlipBack();
         PictureList[_secondRevealedPic].FlipBack();
@@ -122,6 +167,8 @@ public class PictureManager : MonoBehaviour
 
         PuzzleRevealedNumber = RevealedState.NoRevealed;
         CurrentGameState = GameState.NoAction;
+
+        _corutineStarted = false;
     }
 
     private void LoadMaterials()
@@ -150,13 +197,65 @@ public class PictureManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(CurrentGameState == GameState.FlipBack)
+        if(CurrentGameState == GameState.DeletingPuzzles)
         {
             if(CurrentPuzzleState == PuzzleState.CanRotate)
             {
-                FlipBack();
+                DestroyPicture();
+                CheckGameEnd();
             }
         }
+
+
+        if(CurrentGameState == GameState.FlipBack)
+        {
+            if(CurrentPuzzleState == PuzzleState.CanRotate && _corutineStarted == false)
+            {
+                StartCoroutine(FlipBack());
+            }
+        }
+
+        if(CurrentGameState == GameState.GameEnd)
+        {
+            if(PictureList[_firstRevealedPic].gameObject.activeSelf == false && PictureList[_secondRevealedPic].gameObject.activeSelf == false && EndGamePanel.activeSelf == false)
+            {
+                ShowEndGameInformation();
+            }
+        }
+    }
+
+    private bool CheckGameEnd()
+    {
+        if(_removedPairs == _pairNumbers && CurrentGameState != GameState.GameEnd)
+        {
+            CurrentGameState = GameState.GameEnd;
+            _gameTimer.StopTimer();
+            Config.PlaceScoreOnBoard(_gameTimer.GetCurrentTime());
+
+        }
+        return (CurrentGameState == GameState.GameEnd);
+    }
+
+    private void ShowEndGameInformation()
+    {
+        EndGamePanel.SetActive(true);
+
+        if(Config.IsBestScore())
+        {
+            NewBestScoreText.SetActive(true);
+            YourScoreText.SetActive(false);
+        }
+        else
+        {
+            NewBestScoreText.SetActive(false);
+            YourScoreText.SetActive(true);
+        }
+
+        var timer = _gameTimer.GetCurrentTime();
+        var minutes = Mathf.Floor(timer / 60);
+        var seconds = Mathf.RoundToInt(timer % 60);
+        var newText = minutes.ToString("00") + ":" + seconds.ToString("00");
+        EndTimeText.GetComponent<Text>().text = newText;
     }
 
 
@@ -220,6 +319,8 @@ public class PictureManager : MonoBehaviour
             o.SetFirstMaterial(_firstMaterial, _firstTexturePath);
             o.ApplyFirstMaterial();
             o.SetSecondMaterial(_materialList[rndMatIndex], _texturePathList[rndMatIndex]);
+            o.SetIndex(rndMatIndex);
+            o.Revealed = false;
 
             //o.ApplySecondMaterial(); //Test to show flipped cards revealing the numbers
 
