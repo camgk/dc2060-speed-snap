@@ -34,7 +34,7 @@ public class PictureManager : MonoBehaviour
     [HideInInspector]
     public List<Picture> PictureList;
 
-    private Vector2 _offset = new Vector2(1.5f, 1.52f);
+    private Vector2 _offset = new Vector2(1.43f, 1.52f);
     private Vector2 _offsetFor15Pairs = new Vector2(1.08f, 1.22f);
     private Vector2 _offsetFor20Pairs = new Vector2(1.08f, 1.0f);
     private Vector3 _newScaleDown = new Vector3(0.9f, 0.9f, 0.001f);

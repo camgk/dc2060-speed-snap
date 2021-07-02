@@ -20,8 +20,9 @@ public class GameSettings : MonoBehaviour
     public enum EPuzzleCategories
     {
         NotSet,
-        Fruits,
-        Vegetables
+        Farm,
+        Ocean,
+        Space
     }
 
     public struct Settings
@@ -60,8 +61,9 @@ public class GameSettings : MonoBehaviour
 
     private void SetPuzzleCatDirectory()
     {
-        _puzzleCatDirectory.Add(EPuzzleCategories.Fruits, "Fruits");
-        _puzzleCatDirectory.Add(EPuzzleCategories.Vegetables, "Veg");
+        _puzzleCatDirectory.Add(EPuzzleCategories.Ocean, "Ocean");
+        _puzzleCatDirectory.Add(EPuzzleCategories.Space, "Space");
+        _puzzleCatDirectory.Add(EPuzzleCategories.Farm, "Farm");
     }
 
     public void SetPairNumber(EPairNumber Number)
